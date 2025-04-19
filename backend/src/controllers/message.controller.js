@@ -4,7 +4,7 @@ import User from "../models/user.model.js";
 
 
 //get all the users but not ourselves
-export const getUsersForSideBar = async(res,req)=>{
+export const getUsersForSideBar = async(req,res)=>{
     try {
         const loggedInUserId= req.user._id;
         const filteredUsers = await User.find({_id: { $ne: loggedInUserId}  }).select("-password");
@@ -49,7 +49,7 @@ export const sendMessage = async(res , req)=>{
             imageUrl = uploadResponse.secure_url;
         }
 
-        const newMessage= newMessage({
+        const newMessage= new Message({
             senderId, 
             receiverId,
             text,
